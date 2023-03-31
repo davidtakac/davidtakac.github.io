@@ -2,6 +2,7 @@
 title: "Stop Writing Interfaces and Repositories on Autopilot"
 summary: "Writing interfaces and repositories for everything is considered a best practice in Android, but I think this can backfire if you don't really need them."
 date: 2023-03-31T11:30:00+02:00
+tags: ['android', 'development']
 draft: false
 ---
 

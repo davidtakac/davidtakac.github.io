@@ -8,10 +8,9 @@ theme = 'PaperMod'
     showcodecopybuttons = true
     defaulttheme = 'auto'
 
-
 [params.homeInfoParams]
     title = "Hello 👋"
-    content = "I am David Takač and this is my website. Here you can find my thoughts on Android development and anything else I choose to write about. Welcome!"
+    content = "I am David Takač and this is my website. Here you can find my thoughts on Android development and anything else I find interesting. Welcome!"
 
 [[params.socialIcons]]
     name = 'github'
@@ -23,5 +22,5 @@ theme = 'PaperMod'
 
 [menu]
 [[menu.main]]
-    name = 'Android'
-    pageRef = '/android'
+    name = "Tags"
+    pageRef = "/tags"
