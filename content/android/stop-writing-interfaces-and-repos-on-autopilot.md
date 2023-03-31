@@ -1,16 +1,16 @@
 ---
-title: "Stop Writing Interfaces and Repositories on Autopilot
-summary: "The best practice of writing repositories and interfaces has been baked into my mind ever since I started with Android development. Recently, I learned that this can backfire if you don't really need them"
-date: 2023-03-30T19:37:55+02:00
-draft: true
+title: "Stop Writing Interfaces and Repositories on Autopilot"
+summary: "Writing interfaces and repositories for everything is considered a best practice in Android, but I think this can backfire if you don't really need them."
+date: 2023-03-31T11:30:00+02:00
+draft: false
 ---
 
-The best practice of writing repositories and interfaces has been baked into my mind ever since I started with Android. Recently, I learned that this can backfire if you don't really need them.
+Writing interfaces and repositories for everything is considered a best practice in Android, but I think this can backfire if you don't really need them.
 
 ## The problem
-Let's say we need to create a screen where the user can see and edit his online profile. No caching, no tests. Sounds simple enough, let's start coding.
+Let's say we need to create a screen where the user can see and edit their online profile. No caching, no tests. Sounds simple enough, let's start coding.
 
-First, we need a way for our ViewModel to get the current profile data so that we can display it. We don't want it to know anything about the way this is done, and we're using an architecture based on use cases, so we create a use case:
+First, we need a way for our ViewModel to get the current profile data so that we can display it. We don't want it to know anything about how this is done, and we're using an architecture based on use cases, so we create a use case:
 
 ```kt
 class GetProfile(private val profileRepository: ProfileRepository) {
@@ -20,7 +20,7 @@ class GetProfile(private val profileRepository: ProfileRepository) {
 data class Profile(val name: String)
 ```
 
-The use case needs to get the data from somewhere. "Get data from somewhere", you say? Sounds like we need a repository: 
+The use case needs to get this data from somewhere. "Get data from somewhere", you say? Sounds like we need a repository: 
 
 ```kt
 interface ProfileRepository {
@@ -74,7 +74,7 @@ By removing the interface and renaming the class, we have preserved abstraction 
 Don't write interfaces before you need to. Classes can abstract implementation details on their own.
 
 ## Why the repository? 
-Our repository is now simpler, but what is its purpose? It just delegates its operations to the API and hides it. Now, this does have its benefits. If something about the API changes, we can react to it in the repository and not touch the use cases. This is a clean approach, as the use case shouldn't know about low-level implementation details, like the network. However, with this app's requirements, I would argue it's better to bend clean architecture in favor of simplicity.
+Our repository is now simpler, but what is its purpose? It just delegates its operations to the API and hides it. Now, this does have its benefits. If something about the API changes, we can react to it in the repository and not touch the use cases. This is a clean approach, as the use case shouldn't know about low-level implementation details, like the network. However, with this example's requirements, I would argue it's better to bend clean architecture in favor of simplicity.
 
 ```kt
 class GetProfile(private val api: Api) {
@@ -110,7 +110,7 @@ class HmsLocationProvider(...) : LocationProvider {...}
 class LocationManagerLocationProvider(...) : LocationProvider {...}
 ```
 
-Now every class that needs to get the current location will use the `LocationProvider` interface which is injected based on the capabilities of the current device. This can be done with your dependency-injection library of choice, or even manually. If we're using Dagger: 
+Now every class that needs to get the current location will use the `LocationProvider` interface which is injected based on the capabilities of the current device. This can be done with your dependency injection library of choice, or even manually. If we're using Dagger: 
 
 ```kt
 @Module
