@@ -1,12 +1,17 @@
 baseURL = 'https://davidtakac.github.io/'
 languageCode = 'en-us'
 title = "David's Website"
-theme='PaperMod'
-sectionPagesMenu = 'main'
+theme = 'PaperMod'
+
+[params]
+    showreadingtime = true
+    showcodecopybuttons = true
+    defaulttheme = 'auto'
+
 
 [params.homeInfoParams]
     title = "Hello 👋"
-    content = "I am David Takač and this is my website. Here, you can find my thoughts on Android development and anything else I may wish to write about. You can also see more about me in the About section. Welcome, and I hope you enjoy your stay."
+    content = "I am David Takač and this is my website. Here you can find my thoughts on Android development and anything else I choose to write about. Welcome!"
 
 [[params.socialIcons]]
     name = 'github'
@@ -15,3 +20,8 @@ sectionPagesMenu = 'main'
 [[params.socialIcons]]
     name = 'linkedin'
     url = "https://linkedin.com/in/davidtakac/"
+
+[menu]
+[[menu.main]]
+    name = 'Android'
+    pageRef = '/android'
