@@ -10,7 +10,7 @@ The best practice of writing repositories and interfaces has been baked into my 
 ## The problem
 Let's say we need to create a screen where the user can see and edit his online profile. No caching, no tests. Sounds simple enough, let's start coding.
 
-First, we need a way for our ViewModel to get the current profile data so that we can display it. We don't want it to know anything about the way this is done, so we create a use case:
+First, we need a way for our ViewModel to get the current profile data so that we can display it. We don't want it to know anything about the way this is done, and we're using an architecture based on use cases, so we create a use case:
 
 ```kt
 class GetProfile(private val profileRepository: ProfileRepository) {
@@ -20,7 +20,7 @@ class GetProfile(private val profileRepository: ProfileRepository) {
 data class Profile(val name: String)
 ```
 
-The use case needs to get the data from somewhere. Get data from somewhere, you say? Sounds like we need a repository: 
+The use case needs to get the data from somewhere. "Get data from somewhere", you say? Sounds like we need a repository: 
 
 ```kt
 interface ProfileRepository {
@@ -34,7 +34,7 @@ class ApiServiceProfileRepository(private val apiService: ApiService) : ProfileR
 
 The repository is defined by an interface. Its implementation maps API data to our Profile entity. The ViewModel knows nothing of the repository. The use case knows nothing of the API. Each of these layers can be independently changed as long as they preserve their public interfaces. All is well.
 
-Now, let's edit the user's name. Once again, we need a use case: 
+Now, let's edit the user's name. Once again, we create a use case: 
 
 ```kt
 class EditName(private val profileRepository: ProfileRepository) {
@@ -68,7 +68,7 @@ class ProfileRepository(private val apiService) {
 }
 ```
 
-By removing the interface and renaming the class, we have preserved abstraction and reduced complexity. The caller still doesn't know we're using an API service. During maintenance, developers will be taken straight to the implementation. This saves time and energy, which is very important in large projects. The longer we manage to keep it simple, the better. Besides, we can easily copy a class' public methods into an interface if the need for testing or polymorphism arises.
+By removing the interface and renaming the class, we have preserved abstraction and reduced complexity. The caller still doesn't know we're using an API service. During maintenance, developers will be taken straight to the implementation, which saves time and energy. Besides, we can easily copy a class' public methods into an interface if the need for testing or polymorphism arises.
 
 Point #1: Don't write interfaces before you need to. Classes can abstract implementation details on their own.
 
@@ -132,9 +132,9 @@ class NewsFeedRepository(
     private val database: NewsDatabase
 ) {
     suspend fun getNewsFeed(): NewsFeed? {
-        val newsFeed = try { apiService.getNewsFeed() } catch (e: Exception) { null }
-            ?.toDatabaseRow()
-            ?.let { database.insertOrUpdateNewsFeed(it) }
+        apiService.getNewsFeed()?.let { 
+            database.insertOrUpdateNewsFeed(it.toDatabaseRow()) 
+        }
         return database.getNewsFeed()?.toDomainEntity()
     }
 }
@@ -143,4 +143,4 @@ class NewsFeedRepository(
 Now every class that needs to get a news feed will use the `NewsFeedRepository` and it won't have to worry about the caching logic. In fact, it won't even know it's happening, which is exactly what repositories are for. 
 
 ## Conclusion
-Before you make an interface or a repository, think if they will be used for their actual purpose. If not, save yourself and your team the trouble and just exclude them. In other words, remember YAGNI and KISS those interfaces and repositories goodbye!
+Before you make an interface or a repository, think if they will be used for their actual purpose. If not, save yourself and your team the trouble and just exclude them. In other words, remember YAGNI and KISS those interfaces and repositories goodbye :)
