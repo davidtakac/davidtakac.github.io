@@ -6,7 +6,7 @@ sectionPagesMenu = 'main'
 
 [params.homeInfoParams]
     title = "Hello 👋"
-    content = "I am David Takač and this is my website. Here, you can find my thoughts on Android, music and anything in between."
+    content = "I am David Takač and this is my website. Here, you can find my thoughts on Android development and anything else I may wish to write about. You can also see more about me in the About section. Welcome, and I hope you enjoy your stay."
 
 [[params.socialIcons]]
     name = 'github'
