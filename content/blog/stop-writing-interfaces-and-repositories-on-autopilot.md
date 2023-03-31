@@ -1,12 +1,12 @@
 ---
 title: "Stop Writing Interfaces and Repositories on Autopilot"
-summary: "Writing interfaces and repositories for everything is considered a best practice in Android, but I think this can backfire if you don't really need them."
+summary: "Writing interfaces and repositories is considered best practice in Android development, but it can backfire if you don't really need them."
 date: 2023-03-31T11:30:00+02:00
 tags: ['android', 'development']
 draft: false
 ---
 
-Writing interfaces and repositories for everything is considered a best practice in Android, but I think this can backfire if you don't really need them.
+Writing interfaces and repositories is considered best practice in Android development, but it can backfire if you don't really need them.
 
 ## The problem
 Let's say we need to create a screen where the user can see and edit their online profile. No caching, no tests. Sounds simple enough, let's start coding.
